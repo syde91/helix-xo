@@ -13,6 +13,47 @@
   }
 }
 
+.Board {
+  min-width: 600px;
+}
+.row {
+  display: flex;
+}
+.cell {
+  background-color: white;
+  width: 200px;
+  border: 1px solid black;
+  height: 200px;
+}
+#cell00 {
+  border-left: 0px;
+  border-top: 0px;
+}
+#cell01 {
+  border-top: 0px;
+}
+#cell02 {
+  border-right: 0px;
+  border-top: 0px;
+}
+#cell10 {
+  border-left: 0px;
+}
+#cell12 {
+  border-right: 0px;
+}
+#cell20 {
+  border-left: 0px;
+  border-bottom: 0px;
+}
+#cell21 {
+  border-bottom: 0px;
+}
+#cell22 {
+  border-right: 0px;
+  border-bottom: 0px;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
