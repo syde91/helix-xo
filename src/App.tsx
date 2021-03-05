@@ -18,7 +18,6 @@ const Cells: string[][] = [
 
 type StageProps = {
   cells: string[][];
-  updateCell: (x: int, y: int, value: string) => void;
 };
 
 type autoPlay = {
