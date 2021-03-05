@@ -22,11 +22,11 @@ type autoPlay = {
 };
 
 const autoPlay = (cells: string[][], value: string) => {
-  const deadOptions: int[] = [];
-  const goodOptions: int[] = [];
-  let optionx: int;
-  let optiony: int;
-  let random: int;
+  const deadOptions: number[] = [];
+  const goodOptions: number[] = [];
+  let optionx: number;
+  let optiony: number;
+  let random: number;
   for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 3; j++) {
       if (cells[i][j] == "") {
