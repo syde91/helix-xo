@@ -104,6 +104,7 @@ function isGameOver(cells: string[][]): boolean {
       return true;
     }
   }
+	return false
 }
 
 type StageProps = {
@@ -114,7 +115,7 @@ const Stage: React.FC<StageProps> = (props) => {
   const [cells, setCells] = useState(Cells);
   const [player, setPlayer] = useState("User");
 
-  const handleClick = (row, column) => {
+  const handleClick = (row:number, column:number) => {
     if (cells[row][column] != "") {
       return;
     }
@@ -205,7 +206,7 @@ const Cell: React.FC<CellProps> = (props) => {
       id={props.id}
       className="cell"
       onClick={props.onClick}
-      value={props.value}
+      data-value={props.value}
     >
       {props.value}
     </div>
