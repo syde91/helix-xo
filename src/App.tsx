@@ -16,16 +16,12 @@ const Cells: string[][] = [
   ["", "", ""],
 ];
 
-type StageProps = {
-  cells: string[][];
-};
-
 type autoPlay = {
   cells: string[][];
   value: string;
 };
 
-const autoPlay = function <autoPlay>(cells, value) {
+const autoPlay = (cells: string[][], value: string) => {
   const deadOptions: int[] = [];
   const goodOptions: int[] = [];
   let optionx: int;
@@ -109,6 +105,10 @@ function isGameOver(cells: string[][]): boolean {
     }
   }
 }
+
+type StageProps = {
+  cells: string[][];
+};
 
 const Stage: React.FC<StageProps> = (props) => {
   const [cells, setCells] = useState(Cells);
