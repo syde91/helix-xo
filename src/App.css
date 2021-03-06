@@ -18,11 +18,6 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 .Rules {
   width: 50%;
   font-size: 24px;
@@ -42,8 +37,25 @@
 }
 .subText {
   font-size: 16px;
+  margin-bottom: 50px;
 }
-
+@media (max-width: 1500px) {
+  .GamePanel {
+    display: block;
+  }
+  .Rules {
+    margin-top: 50px;
+    margin-bottom: 100px;
+    width: 90%;
+    padding: 20px;
+  }
+  .Board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100% !important;
+  }
+}
 .Board {
   min-width: 600px;
   width: 50%;
