@@ -1,6 +1,17 @@
 .App {
   text-align: center;
 }
+.GamePanel {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.title {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-size: 40px;
+}
 
 .App-logo {
   height: 40vmin;
@@ -12,9 +23,30 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.Rules {
+  width: 50%;
+  font-size: 24px;
+  padding: 0px 40px;
+}
+.reset {
+  padding: 30px 0px;
+  cursor: pointer;
+  width: 650px;
+  text-align: center;
+  transition: 0.5s;
+  color: grey;
+}
+.reset:hover {
+  color: black;
+  transform: scale(1.2);
+}
+.subText {
+  font-size: 16px;
+}
 
 .Board {
   min-width: 600px;
+  width: 50%;
 }
 .row {
   display: flex;
@@ -22,7 +54,8 @@
 .cell {
   background-color: white;
   width: 200px;
-  border: 1px solid black;
+  border: 14px solid #d0d0d0;
+
   height: 200px;
 }
 #cell00 {
@@ -76,4 +109,55 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.scene {
+  perspective: 600px;
+}
+
+.black {
+  background: #443c38 !important;
+  color: white;
+}
+.white {
+  background: #fff !important;
+  color: black !important;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative;
+}
+
+.card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.card__face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  line-height: 260px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.card__face--front {
+  background: #eee;
+}
+
+.card__face--back {
+  background: white;
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

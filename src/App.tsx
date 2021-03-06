@@ -1,11 +1,26 @@
 import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import Cell from "./Cell";
 
 function App() {
   return (
     <div className="App">
-      <Stage cells={Cells} />
+      <div className="title">
+        <b>Inverse</b> Tic-Tac-Toe *
+      </div>
+      <div className="GamePanel">
+        <div className="Rules">
+          <p>
+            Rule #1 : <b>Don't try to win.</b> Force your opponent to win.
+          </p>
+          <p className="subText">
+            {" "}
+            * In <b>"Inverse Tic-Tac-Toe"</b> winners are losers.{" "}
+            <b>Losers are winners</b>.
+          </p>
+        </div>
+        <Stage cells={Cells} />
+      </div>
     </div>
   );
 }
@@ -21,6 +36,7 @@ type autoPlay = {
   value: string;
 };
 
+// autoPlay: Finds the safest option for the CPU to play
 const autoPlay = (cells: string[][], value: string) => {
   const deadOptions: number[] = [];
   const goodOptions: number[] = [];
@@ -34,8 +50,6 @@ const autoPlay = (cells: string[][], value: string) => {
           return arr.slice();
         });
         copy[i][j] = value;
-        console.log(cells);
-        console.log(copy);
         if (isGameOver(copy)) {
           deadOptions.push(i);
           deadOptions.push(j);
@@ -60,16 +74,13 @@ const autoPlay = (cells: string[][], value: string) => {
     optionx = goodOptions[random];
     optiony = goodOptions[random + 1];
   }
-  console.log(goodOptions);
-  console.log(deadOptions);
-  console.log(optionx);
-  console.log(optiony);
   const element: HTMLElement = document.getElementById(
     "cell" + optionx + optiony
   ) as HTMLElement;
   element.click();
 };
 
+// Checks if the game has been drawn. Call isGameDraw only after isGameOver
 function isGameDraw(cells: string[][]): boolean {
   for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 3; j++) {
@@ -81,6 +92,7 @@ function isGameDraw(cells: string[][]): boolean {
   return true;
 }
 
+// Checks if game won
 function isGameOver(cells: string[][]): boolean {
   const winningConditions = [
     [0, 0, 0, 1, 0, 2],
@@ -104,7 +116,7 @@ function isGameOver(cells: string[][]): boolean {
       return true;
     }
   }
-	return false
+  return false;
 }
 
 type StageProps = {
@@ -113,10 +125,22 @@ type StageProps = {
 
 const Stage: React.FC<StageProps> = (props) => {
   const [cells, setCells] = useState(Cells);
+  const [gameStop, setGameStop] = useState(false);
   const [player, setPlayer] = useState("User");
 
-  const handleClick = (row:number, column:number) => {
-    if (cells[row][column] != "") {
+  const reset = () => {
+    setGameStop(false);
+    const reset: string[][] = [
+      ["", "", ""],
+      ["", "", ""],
+      ["", "", ""],
+    ];
+    setCells(reset);
+		return
+  };
+
+  const handleClick = (row: number, column: number) => {
+    if (cells[row][column] != "" || gameStop) {
       return;
     }
     const copy = [...cells];
@@ -124,7 +148,18 @@ const Stage: React.FC<StageProps> = (props) => {
     setCells(copy);
 
     if (isGameOver(cells)) {
-      console.log(player + " LOSES!!!");
+      setGameStop(true);
+      setTimeout(() => {
+        alert(
+          player == "User"
+            ? "You LOSE!!! Try forcing your opponent to make a line."
+            : "You WIN!!!"
+        );
+      }, 600);
+      return;
+    }
+    if (isGameDraw(cells)) {
+      alert("Draw!!!");
       return;
     }
     player == "User" ? setPlayer("CPU") : setPlayer("User");
@@ -133,10 +168,13 @@ const Stage: React.FC<StageProps> = (props) => {
   useEffect(() => {
     if (player == "CPU") {
       const copy = [...cells];
-      autoPlay(copy, "O");
+      setTimeout(() => {
+        autoPlay(copy, "O");
+      }, 500);
     }
   }, [player]);
 
+  // TODO:@syde91 Change reset method to reset state
   return (
     <div className="Board">
       <div className="row">
@@ -190,25 +228,14 @@ const Stage: React.FC<StageProps> = (props) => {
           onClick={() => handleClick(2, 2)}
         />
       </div>
-    </div>
-  );
-};
-
-type CellProps = {
-  id: string;
-  value: string;
-  onClick: () => void;
-};
-
-const Cell: React.FC<CellProps> = (props) => {
-  return (
-    <div
-      id={props.id}
-      className="cell"
-      onClick={props.onClick}
-      data-value={props.value}
-    >
-      {props.value}
+      <div
+        className="reset"
+        onClick={() => {
+          location.reload();
+        }}
+      >
+        RESET
+      </div>
     </div>
   );
 };
